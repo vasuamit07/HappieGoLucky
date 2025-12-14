@@ -2,36 +2,26 @@ package com.happiegolucky.backend.controller;
 
 import com.happiegolucky.backend.api.controller.SearchApi;
 import com.happiegolucky.backend.api.model.Flight;
+import com.happiegolucky.backend.service.FlightService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.math.BigDecimal; // <--- Make sure this is here
 import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
-@RestController
+@RestController // This remains the public API endpoint
+@RequiredArgsConstructor // Lombok to inject the service
 public class FlightController implements SearchApi {
+
+    // Inject the new Service layer
+    private final FlightService flightService;
 
     @Override
     public ResponseEntity<List<Flight>> searchFlights(String from, String to, LocalDate date) {
 
-        Flight dummyFlight = new Flight();
-        dummyFlight.setId(UUID.randomUUID());
-        dummyFlight.setAirline("Happie Air");
-        dummyFlight.setFlightNumber("HG101");
-
-        // This line caused the error before.
-        // Now that api.yaml uses 'decimal', this will work perfectly.
-        dummyFlight.setPrice(BigDecimal.valueOf(150.00));
-
-        dummyFlight.setDepartureTime(OffsetDateTime.now());
-        dummyFlight.setArrivalTime(OffsetDateTime.now().plusHours(2));
-
-        List<Flight> flights = new ArrayList<>();
-        flights.add(dummyFlight);
+        // This is the core logic: Controller calls Service, Service calls Repository.
+        List<Flight> flights = flightService.searchFlights(from, to, date);
 
         return ResponseEntity.ok(flights);
     }
