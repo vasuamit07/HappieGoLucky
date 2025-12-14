@@ -1,0 +1,73 @@
+openapi: 3.0.3
+info:
+  title: HappieGoLucky API
+  description: Flight search engine API
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+    description: Local Development Server
+
+paths:
+  /search:
+    get:
+      summary: Search for flights
+      operationId: searchFlights
+      parameters:
+        - name: from
+          in: query
+          description: Origin Airport Code (e.g., JFK)
+          required: true
+          schema:
+            type: string
+        - name: to
+          in: query
+          description: Destination Airport Code (e.g., LHR)
+          required: true
+          schema:
+            type: string
+        - name: date
+          in: query
+          description: Date of travel (YYYY-MM-DD)
+          required: true
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Successful search
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Flight'
+
+components:
+  schemas:
+    Flight:
+      type: object
+      required:
+        - id
+        - airline
+        - price
+        - departureTime
+      properties:
+        id:
+          type: string
+          format: uuid
+        airline:
+          type: string
+          example: "Air Canada"
+        flightNumber:
+          type: string
+          example: "AC123"
+        price:
+          type: number
+          format: decimal
+          example: 450.50
+        departureTime:
+          type: string
+          format: date-time
+        arrivalTime:
+          type: string
+          format: date-time
