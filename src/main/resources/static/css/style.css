@@ -1,134 +1,4 @@
-/* --- Global Doodle Theme --- */
-@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Kalam:wght@300;400;700&display=swap');
-
-body {
-    font-family: 'Kalam', cursive;
-    background-color: #ffeaa7; /* Light doodle-paper yellow */
-    color: #2d3436; /* Dark charcoal ink */
-    margin: 0;
-    padding: 20px;
-    line-height: 1.6;
-}
-
-.container {
-    max-width: 900px;
-    margin: 0 auto;
-    background: #ffffff; /* White drawing paper */
-    padding: 30px;
-    box-shadow: 10px 10px 0px 0px #fd79a8; /* Hand-drawn pink shadow */
-    border: 3px solid #2d3436; /* Thick black border */
-    border-radius: 15px;
-}
-
-/* --- Doodle Typography --- */
-.doodle-header h1 {
-    font-family: 'Permanent Marker', cursive;
-    font-size: 3em;
-    color: #6c5ce7; /* Purple Marker */
-    text-align: center;
-    margin-bottom: 5px;
-}
-
-.doodle-text {
-    text-align: center;
-    font-size: 1.2em;
-    font-style: italic;
-    color: #0984e3; /* Blue ink */
-}
-
-.doodle-subheading {
-    border-bottom: 2px dashed #e17055; /* Orange underline */
-    padding-bottom: 5px;
-}
-
-/* --- Form Styling --- */
-.doodle-form {
-    display: flex;
-    gap: 15px;
-    justify-content: space-between;
-    align-items: flex-end;
-    padding: 20px;
-}
-
-.form-group {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-}
-
-.doodle-label {
-    font-weight: bold;
-    margin-bottom: 5px;
-    color: #2d3436;
-    text-decoration: underline wavy #ff6b6b 2px; /* Red wavy underline */
-}
-
-/* Update this line to include password and email inputs */
-input[type="text"], input[type="date"], input[type="password"], input[type="email"] {
-    padding: 10px;
-    border: 2px solid #2d3436;
-    border-radius: 5px;
-    background: #fdf6e3; /* Off-white input */
-    font-family: 'Kalam', cursive;
-    font-size: 1em;
-    transition: all 0.2s;
-}
-
-/* Also update the focus style */
-input[type="text"]:focus, input[type="date"]:focus, input[type="password"]:focus, input[type="email"]:focus {
-    outline: none;
-    box-shadow: 3px 3px 0px #00b894; /* Green focus highlight */
-}
-
-.doodle-button {
-    padding: 10px 20px;
-    background-color: #fd79a8; /* Pink Button */
-    color: white;
-    border: 3px solid #2d3436;
-    border-radius: 50px; /* Pill shape */
-    cursor: pointer;
-    font-family: 'Permanent Marker', cursive;
-    font-size: 1.1em;
-    box-shadow: 5px 5px 0px #fab1a0;
-    transition: all 0.1s;
-}
-
-.doodle-button:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: 7px 7px 0px #fab1a0;
-}
-
-/* --- Results/Card Styling --- */
-.flight-list {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.flight-card {
-    background: #dfe6e9; /* Light grey card background */
-    padding: 15px 20px;
-    border: 2px dashed #2d3436; /* Dashed doodle border */
-    border-radius: 10px;
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr;
-    align-items: center;
-    gap: 10px;
-    box-shadow: 4px 4px 0px #a29bfe; /* Purple card shadow */
-}
-
-.card-item {
-    padding: 5px 0;
-}
-
-.card-label {
-    font-size: 0.9em;
-    color: #636e72;
-    font-weight: normal;
-}
-
-/* --- Global Doodle Theme --- */
+/* --- Master Doodle Theme --- */
 @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Kalam:wght@300;400;700&display=swap');
 
 body {
@@ -137,7 +7,6 @@ body {
     color: #2d3436;
     margin: 0;
     padding: 20px;
-    line-height: 1.6;
 }
 
 .container {
@@ -150,78 +19,66 @@ body {
     border-radius: 15px;
 }
 
-/* Auth Container for Login/Register */
-.auth-container {
-    max-width: 450px;
-    margin: 50px auto;
+/* Nav Bar for Bookings/Login */
+.doodle-nav {
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+    margin-bottom: 20px;
 }
 
 .doodle-header h1 {
     font-family: 'Permanent Marker', cursive;
-    font-size: 3em;
+    font-size: 3.5em;
     color: #6c5ce7;
     text-align: center;
-    margin-bottom: 5px;
+    margin: 0;
 }
 
-.doodle-text {
-    text-align: center;
-    font-size: 1.2em;
-    font-style: italic;
-    color: #0984e3;
-}
-
-/* --- Form Elements --- */
-.auth-form {
+/* Form Layouts */
+.search-section, .auth-form {
     display: flex;
-    flex-direction: column;
-    gap: 20px;
-    padding: 20px 0;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 20px;
+    border: 2px dashed #2d3436;
+    border-radius: 10px;
+    margin-top: 20px;
 }
 
 .form-group {
     display: flex;
     flex-direction: column;
+    flex: 1;
+    min-width: 200px;
 }
 
 .doodle-label {
     font-weight: bold;
-    margin-bottom: 5px;
     text-decoration: underline wavy #ff6b6b 2px;
+    margin-bottom: 8px;
 }
 
-/* FIXED: Targets all input types used in Auth */
-input[type="text"],
-input[type="date"],
-input[type="password"],
-input[type="email"] {
+input {
     padding: 12px;
     border: 3px solid #2d3436;
     border-radius: 8px;
     background: #fdf6e3;
     font-family: 'Kalam', cursive;
     font-size: 1.1em;
-    width: 100%;
-    box-sizing: border-box;
 }
 
-input:focus {
-    outline: none;
-    box-shadow: 3px 3px 0px #00b894;
-}
-
+/* Buttons */
 .doodle-button {
-    padding: 12px 20px;
+    padding: 12px 25px;
     background-color: #fd79a8;
     color: white;
     border: 3px solid #2d3436;
     border-radius: 50px;
     cursor: pointer;
     font-family: 'Permanent Marker', cursive;
-    font-size: 1.2em;
     box-shadow: 5px 5px 0px #fab1a0;
-    transition: all 0.1s;
-    width: 100%; /* Makes button full width in auth forms */
+    transition: 0.1s;
 }
 
 .doodle-button:hover {
@@ -229,8 +86,35 @@ input:focus {
     box-shadow: 7px 7px 0px #fab1a0;
 }
 
-.doodle-link {
-    color: #6c5ce7;
+/* Flight Cards */
+.flight-list {
+    margin-top: 30px;
+}
+
+.flight-card {
+    background: #dfe6e9;
+    padding: 20px;
+    border: 3px dashed #2d3436;
+    border-radius: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 5px 5px 0px #a29bfe;
+}
+
+.price {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 2em;
+    color: #d63031;
+}
+
+.buy-button {
+    background-color: #00b894;
+    padding: 10px 20px;
+    color: white;
+    border: 2px solid #2d3436;
+    border-radius: 20px;
     font-weight: bold;
-    text-decoration: underline wavy #fab1a0;
+    cursor: pointer;
 }

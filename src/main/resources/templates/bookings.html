@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My Bookings</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <nav class="doodle-nav">
+        <a th:href="@{/}" class="doodle-link">← Back to Search</a>
+    </nav>
+
+    <header class="doodle-header">
+        <h1>My Bookings 📒</h1>
+        <p class="doodle-text">Your saved adventures</p>
+    </header>
+
+    <div id="bookedList" class="flight-list">
+        <p class="doodle-text">Loading your journeys...</p>
+    </div>
+</div>
+<script>
+    // Simple script just for this page to fetch user bookings
+    async function loadBookings() {
+        const res = await fetch('/api/bookings/my');
+        const bookings = await res.json();
+        const container = document.getElementById('bookedList');
+        container.innerHTML = bookings.length ? '' : '<p class="doodle-text">No bookings yet. Go doodle some flights!</p>';
+
+        bookings.forEach(b => {
+            container.innerHTML += `
+                <div class="flight-card" style="border-color: #00b894">
+                    <div>
+                        <strong>${b.flight.airline}</strong><br>
+                        <small>${b.flight.origin} → ${b.flight.destination}</small>
+                    </div>
+                    <div class="doodle-text" style="font-size: 0.8em">Booked on: ${new Date(b.bookingDate).toLocaleDateString()}</div>
+                    <div class="price">$${b.flight.price}</div>
+                </div>
+            `;
+        });
+    }
+    loadBookings();
+</script>
+</body>
+</html>

@@ -15,6 +15,11 @@ public class UiController {
 
     private final UserService userService;
 
+    @GetMapping("/my-bookings")
+    public String myBookings() {
+        return "bookings";
+    }
+
     @GetMapping("/")
     public String index() { return "index"; }
 
