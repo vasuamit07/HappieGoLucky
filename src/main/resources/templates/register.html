@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>HappieGoLucky - Sign Up</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container auth-container">
+    <header class="doodle-header">
+        <h1 class="doodle-text">Sign Up ✍️</h1>
+        <p>Start your journey!</p>
+    </header>
+
+    <section>
+        <div th:if="${errorMessage}" class="doodle-text" style="color: #d63031; margin-bottom: 10px;" th:text="${errorMessage}"></div>
+
+        <form th:action="@{/register}" method="post" class="auth-form">
+            <div class="form-group">
+                <label class="doodle-label">Username</label>
+                <input type="text" name="username" placeholder="Pick a name" required>
+            </div>
+            <div class="form-group">
+                <label class="doodle-label">Email</label>
+                <input type="email" name="email" placeholder="your@email.com" required>
+            </div>
+            <div class="form-group">
+                <label class="doodle-label">Password</label>
+                <input type="password" name="password" placeholder="••••••••" required>
+            </div>
+
+            <button type="submit" class="doodle-button">Register Now!</button>
+        </form>
+
+        <p style="text-align: center; margin-top: 20px;">
+            Already have an account? <a th:href="@{/login}" class="doodle-link">Log In</a>
+        </p>
+    </section>
+</div>
+</body>
+</html>
