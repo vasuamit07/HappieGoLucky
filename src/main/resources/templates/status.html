@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Flight Status - HappieGoLucky</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <nav class="doodle-nav">
+        <a th:href="@{/}" class="doodle-link">← Home</a>
+    </nav>
+
+    <header class="doodle-header">
+        <h1>HappieGoLucky Radar 📡</h1>
+        <p class="doodle-text">Live Flight Tracking & Gate Information</p>
+    </header>
+
+    <section class="search-section" style="justify-content: center;">
+        <div class="form-group" style="max-width: 300px;">
+            <label class="doodle-label">Enter Flight Code</label>
+            <input type="text" id="flightCode" placeholder="e.g. BA234">
+        </div>
+        <button onclick="checkStatus()" class="doodle-button" style="margin-top: 25px;">Track Flight</button>
+    </section>
+
+    <div id="statusResult" style="margin-top: 30px;"></div>
+</div>
+
+<script>
+    async function checkStatus() {
+        const code = document.getElementById('flightCode').value;
+        const resultDiv = document.getElementById('statusResult');
+
+        if(!code) return alert("Please enter a code!");
+
+        resultDiv.innerHTML = '<p class="doodle-text">Pinging satellites... 🛰️</p>';
+
+        try {
+            const res = await fetch(`/api/status/${code}`);
+            if (!res.ok) throw new Error("Flight not found");
+
+            const flight = await res.json();
+
+            // Logic for status color
+            let color = flight.status === 'DELAYED' ? '#d63031' : '#00b894';
+
+            resultDiv.innerHTML = `
+                <div class="flight-card" style="border: 4px solid #2d3436; display: block;">
+                    <div style="display: flex; justify-content: space-between;">
+                        <h3>${flight.airline} ${flight.flightNumber}</h3>
+                        <h3 style="color: ${color}">${flight.status}</h3>
+                    </div>
+                    <p><strong>Route:</strong> ${flight.origin} ✈️ ${flight.destination}</p>
+                    <div style="background: #eee; height: 15px; border-radius: 10px; overflow: hidden; margin: 10px 0;">
+                        <div style="width: 65%; height: 100%; background: ${color};"></div>
+                    </div>
+                    <p style="font-size: 0.8em;">Scheduled Arrival: ${new Date(flight.arrivalTime).toLocaleTimeString()}</p>
+                </div>
+            `;
+        } catch (err) {
+            resultDiv.innerHTML = `<p class="doodle-text" style="color: #d63031;">❌ Flight "${code}" not found in our doodle-base.</p>`;
+        }
+    }
+</script>
+</body>
+</html>

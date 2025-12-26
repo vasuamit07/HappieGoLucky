@@ -22,8 +22,7 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable()) // Disabled for local development
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/css/**", "/js/**", "/search", "/login", "/register").permitAll()
-                        .requestMatchers("/api/bookings/**").authenticated() // ADD THIS LINE
+                        .requestMatchers("/", "/css/**", "/js/**", "/search", "/login", "/register", "/status/**", "/api/status/**").permitAll() // Added /status and /api/status
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form

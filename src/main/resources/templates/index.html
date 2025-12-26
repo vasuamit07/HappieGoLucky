@@ -16,6 +16,8 @@
         <a sec:authorize="isAuthenticated()" th:href="@{/my-bookings}" class="doodle-link">My Bookings</a>
         <a sec:authorize="isAnonymous()" th:href="@{/login}" class="doodle-link">Login</a>
         <a sec:authorize="isAnonymous()" th:href="@{/register}" class="doodle-link">Sign Up</a>
+        <a th:href="@{/status}" class="doodle-link" style="color: #0984e3;">Flight Status 🛰️</a>
+        <a th:href="@{/}" class="doodle-link">Search</a>
 
         <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post" style="display:inline;">
             <button type="submit" style="background:none; border:none; cursor:pointer; color:#6c5ce7; font-family:'Kalam'; font-weight:bold; text-decoration:underline;">Logout</button>

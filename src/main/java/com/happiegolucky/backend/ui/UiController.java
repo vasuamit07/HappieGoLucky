@@ -54,4 +54,8 @@ public class UiController {
     public String myBookings() {
         return "bookings";
     }
+    @GetMapping("/status")
+    public String statusPage() {
+        return "status";
+    }
 }
