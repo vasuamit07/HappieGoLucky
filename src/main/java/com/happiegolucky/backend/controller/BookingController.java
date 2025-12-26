@@ -16,13 +16,31 @@ public class BookingController {
 
     private final BookingService bookingService;
 
+    /**
+     * POST /api/bookings/{flightId}
+     * Saves a flight to the user's account.
+     */
     @PostMapping("/{flightId}")
     public ResponseEntity<String> createBooking(@PathVariable UUID flightId) {
-        bookingService.bookFlight(flightId);
-        return ResponseEntity.ok("Flight booked successfully!");
+        try {
+            bookingService.bookFlight(flightId);
+            return ResponseEntity.ok("Success! Flight Doodled into your bookings.");
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error creating booking: " + e.getMessage());
+        }
     }
+
+    /**
+     * GET /api/bookings/my
+     * Returns a JSON list of all flights booked by the current user.
+     */
     @GetMapping("/my")
     public ResponseEntity<List<BookingEntity>> getMyBookings() {
-        return ResponseEntity.ok(bookingService.getUserBookings());
+        try {
+            List<BookingEntity> myBookings = bookingService.getUserBookings();
+            return ResponseEntity.ok(myBookings);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).build();
+        }
     }
 }

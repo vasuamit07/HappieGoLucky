@@ -18,9 +18,12 @@ public class UserService {
     /**
      * Handles user registration: checks if username exists and encrypts the password.
      */
-    public UserEntity registerNewUser(String username, String password, String email) throws RuntimeException {
+    public UserEntity registerNewUser(String username, String password, String confirmPassword, String email) throws RuntimeException {
 
         // 1. Check if the user already exists
+        if (!password.equals(confirmPassword)) {
+            throw new RuntimeException("Passwords do not match!");
+        }
         Optional<UserEntity> existingUser = userRepository.findByUsername(username);
         if (existingUser.isPresent()) {
             throw new RuntimeException("Username '" + username + "' is already taken.");

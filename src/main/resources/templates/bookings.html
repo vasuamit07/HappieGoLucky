@@ -2,44 +2,50 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>My Bookings</title>
+    <title>My Bookings - Tracking</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        .tracking-container { width: 100%; background: #eee; height: 10px; border-radius: 5px; margin-top: 10px; border: 1px solid #2d3436; overflow: hidden; }
+        .tracking-bar { height: 100%; background: #00b894; width: 45%; } /* Simulated 45% progress */
+    </style>
 </head>
 <body>
 <div class="container">
-    <nav class="doodle-nav">
-        <a th:href="@{/}" class="doodle-link">← Back to Search</a>
-    </nav>
+    <nav class="doodle-nav"><a th:href="@{/}" class="doodle-link">← Back to Search</a></nav>
+    <header class="doodle-header"><h1>Track My Flights 🛰️</h1></header>
 
-    <header class="doodle-header">
-        <h1>My Bookings 📒</h1>
-        <p class="doodle-text">Your saved adventures</p>
-    </header>
-
-    <div id="bookedList" class="flight-list">
-        <p class="doodle-text">Loading your journeys...</p>
-    </div>
+    <div id="bookedList" class="flight-list"></div>
 </div>
 <script>
-    // Simple script just for this page to fetch user bookings
     async function loadBookings() {
         const res = await fetch('/api/bookings/my');
         const bookings = await res.json();
         const container = document.getElementById('bookedList');
-        container.innerHTML = bookings.length ? '' : '<p class="doodle-text">No bookings yet. Go doodle some flights!</p>';
+        container.innerHTML = bookings.length ? '' : '<p class="doodle-text">No bookings yet.</p>';
 
         bookings.forEach(b => {
-            container.innerHTML += `
-                <div class="flight-card" style="border-color: #00b894">
-                    <div>
-                        <strong>${b.flight.airline}</strong><br>
-                        <small>${b.flight.origin} → ${b.flight.destination}</small>
-                    </div>
-                    <div class="doodle-text" style="font-size: 0.8em">Booked on: ${new Date(b.bookingDate).toLocaleDateString()}</div>
-                    <div class="price">$${b.flight.price}</div>
+    // Generate a color based on status
+    let statusColor = "#00b894"; // Green for On Time
+    if(b.flight.status === "DELAYED") statusColor = "#d63031"; // Red
+    if(b.flight.status === "IN AIR") statusColor = "#0984e3"; // Blue
+
+    container.innerHTML += `
+        <div class="flight-card" style="border-style: solid; display: block; border-left: 10px solid ${statusColor}">
+            <div style="display: flex; justify-content: space-between;">
+                <div>
+                    <strong>${b.flight.airline}</strong> —
+                    <span style="color: ${statusColor}; font-weight: bold;">● ${b.flight.status}</span><br>
+                    <small>${b.flight.origin} to ${b.flight.destination}</small>
                 </div>
-            `;
-        });
+                <div class="price">$${b.flight.price}</div>
+            </div>
+            <div class="tracking-container">
+                <div class="tracking-bar" style="width: ${b.flight.status === 'LANDED' ? '100%' : (b.flight.status === 'IN AIR' ? '65%' : '0%')}; background: ${statusColor}"></div>
+            </div>
+            <p style="font-size: 0.7em; margin-top: 5px;">DoodleRadar ID: ${b.id.substring(0,8)}</p>
+        </div>
+    `;
+});
     }
     loadBookings();
 </script>

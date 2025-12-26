@@ -24,4 +24,7 @@ public class FlightEntity {
 
     private LocalDateTime departureTime;
     private LocalDateTime arrivalTime;
+    // ... existing imports ...
+    private String status = "ON TIME"; // ON TIME, DELAYED, IN AIR, LANDED
+    private String provider = "Direct"; // e.g., Expedia, British Airways, Trip.com
 }
