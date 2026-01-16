@@ -20,10 +20,10 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable()) // Disabled for local development
+                .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/css/**", "/js/**", "/search", "/login", "/register", "/status/**", "/api/status/**").permitAll() // Added /status and /api/status
-                        .anyRequest().authenticated()
+                        // Add /api/flights/** to this line below:
+                        .requestMatchers("/", "/css/**", "/js/**", "/api/flights/**", "/api/airports/**").permitAll()                        .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
                         .loginPage("/login")

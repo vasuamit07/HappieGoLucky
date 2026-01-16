@@ -6,6 +6,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -55,6 +56,7 @@ public class HappieGoLuckyBackendApplication {
             flight3.setDepartureTime(LocalDateTime.now().plusDays(5).withHour(10).withMinute(0));
             flight3.setArrivalTime(LocalDateTime.now().plusDays(5).withHour(13).withMinute(0));
             repository.save(flight3);
+
 
             System.out.println("--- Seeding Complete ---");
         };

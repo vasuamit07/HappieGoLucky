@@ -1,120 +1,77 @@
-/* --- Master Doodle Theme --- */
-@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Kalam:wght@300;400;700&display=swap');
-
-body {
-    font-family: 'Kalam', cursive;
-    background-color: #ffeaa7;
-    color: #2d3436;
-    margin: 0;
-    padding: 20px;
+:root {
+    --sunny: #FFD93D;
+    --ocean: #4D96FF;
+    --sky: #F0F7FF;
+    --cloud: #FFFFFF;
+    --danger: #FF4757;
+    --text: #2D3436;
 }
 
-.container {
-    max-width: 900px;
-    margin: 0 auto;
-    background: #ffffff;
-    padding: 30px;
-    box-shadow: 10px 10px 0px 0px #fd79a8;
-    border: 3px solid #2d3436;
-    border-radius: 15px;
+body { font-family: 'Poppins', sans-serif; background: var(--sky); color: var(--text); margin: 0; }
+.navbar { background: var(--cloud); padding: 15px 50px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+.logo { font-weight: 800; font-size: 1.5rem; color: var(--ocean); }
+
+.hero { background: var(--ocean); color: white; padding: 60px 20px 100px; text-align: center; }
+.hero h1 { font-size: 3rem; margin: 0; }
+
+.container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+
+.search-box-expanded {
+    background: var(--cloud); padding: 30px; border-radius: 24px;
+    box-shadow: 0 15px 40px rgba(77, 150, 255, 0.15); margin-top: -60px;
+    position: relative; z-index: 10;
 }
 
-/* Nav Bar for Bookings/Login */
-.doodle-nav {
-    display: flex;
-    justify-content: flex-end;
-    gap: 20px;
-    margin-bottom: 20px;
+.search-row { display: flex; gap: 20px; margin-bottom: 20px; }
+.input-group { flex: 1; display: flex; flex-direction: column; }
+.input-group label { font-size: 0.75rem; font-weight: 700; color: var(--ocean); margin-bottom: 5px; text-transform: uppercase; }
+
+input, select { padding: 12px; border: 2px solid var(--sky); border-radius: 12px; font-family: inherit; outline: none; transition: 0.2s; }
+input:focus { border-color: var(--ocean); }
+
+.passenger-picker { display: flex; gap: 15px; background: #f8f9fa; padding: 8px 15px; border-radius: 12px; align-items: center; }
+.counter { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; font-weight: 600; }
+.counter button { border: none; background: var(--ocean); color: white; border-radius: 6px; width: 28px; height: 28px; cursor: pointer; transition: 0.2s; }
+.counter button:hover { background: #357ae8; }
+
+.btn-main { background: var(--sunny); border: none; padding: 15px 30px; border-radius: 12px; font-weight: 700; cursor: pointer; transition: 0.3s; }
+.btn-main:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(255, 217, 61, 0.4); }
+
+/* Result Card & Status Glow */
+.card {
+    background: white; border-radius: 20px; padding: 25px; margin-top: 20px;
+    display: flex; justify-content: space-between; align-items: center;
+    border: 1px solid #eef2f7; animation: slideIn 0.4s ease-out;
 }
 
-.doodle-header h1 {
-    font-family: 'Permanent Marker', cursive;
-    font-size: 3.5em;
-    color: #6c5ce7;
-    text-align: center;
-    margin: 0;
+@keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; } }
+
+.status-badge {
+    padding: 4px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: 800;
+    margin-bottom: 10px; display: inline-block;
 }
 
-/* Form Layouts */
-.search-section, .auth-form {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    padding: 20px;
-    border: 2px dashed #2d3436;
-    border-radius: 10px;
-    margin-top: 20px;
+.status-available { background: #e1f7e5; color: #2ecc71; }
+
+.status-low {
+    background: var(--danger); color: white;
+    box-shadow: 0 0 10px rgba(255, 71, 87, 0.4);
+    animation: pulse 1.5s infinite;
 }
 
-.form-group {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    min-width: 200px;
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); box-shadow: 0 0 15px rgba(255, 71, 87, 0.6); }
+    100% { transform: scale(1); }
 }
 
-.doodle-label {
-    font-weight: bold;
-    text-decoration: underline wavy #ff6b6b 2px;
-    margin-bottom: 8px;
+.price-value { font-size: 1.8rem; font-weight: 800; color: var(--ocean); }
+.loader { text-align: center; padding: 20px; font-weight: 600; color: var(--ocean); display: none; }
+input[list]::-webkit-calendar-picker-indicator {
+    display: none !important; /* Hides the default arrow so it looks like a clean autocomplete */
 }
 
-input {
-    padding: 12px;
-    border: 3px solid #2d3436;
-    border-radius: 8px;
-    background: #fdf6e3;
-    font-family: 'Kalam', cursive;
-    font-size: 1.1em;
-}
-
-/* Buttons */
-.doodle-button {
-    padding: 12px 25px;
-    background-color: #fd79a8;
-    color: white;
-    border: 3px solid #2d3436;
-    border-radius: 50px;
-    cursor: pointer;
-    font-family: 'Permanent Marker', cursive;
-    box-shadow: 5px 5px 0px #fab1a0;
-    transition: 0.1s;
-}
-
-.doodle-button:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: 7px 7px 0px #fab1a0;
-}
-
-/* Flight Cards */
-.flight-list {
-    margin-top: 30px;
-}
-
-.flight-card {
-    background: #dfe6e9;
-    padding: 20px;
-    border: 3px dashed #2d3436;
-    border-radius: 15px;
-    margin-bottom: 15px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 5px 5px 0px #a29bfe;
-}
-
-.price {
-    font-family: 'Permanent Marker', cursive;
-    font-size: 2em;
-    color: #d63031;
-}
-
-.buy-button {
-    background-color: #00b894;
-    padding: 10px 20px;
-    color: white;
-    border: 2px solid #2d3436;
-    border-radius: 20px;
-    font-weight: bold;
-    cursor: pointer;
+.input-group input:focus {
+    border-color: var(--ocean);
+    box-shadow: 0 0 8px rgba(77, 150, 255, 0.2);
 }

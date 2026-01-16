@@ -1,51 +1,79 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>HappieGoLucky - Flight Finder</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HappieGoLucky | Real-Time Deals</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
 </head>
 <body>
-<div class="container">
-    <nav class="doodle-nav">
-    <span sec:authorize="isAuthenticated()" class="doodle-text" style="color: #6c5ce7; font-weight: bold;">
-        Hi, <span th:text="${#authentication.name}">amit</span>! 👋
-    </span>
+<nav class="navbar"><div class="logo">☀️ HappieGoLucky</div></nav>
 
-        <a th:href="@{/}" class="doodle-link">Search</a>
-        <a sec:authorize="isAuthenticated()" th:href="@{/my-bookings}" class="doodle-link">My Bookings</a>
-        <a sec:authorize="isAnonymous()" th:href="@{/login}" class="doodle-link">Login</a>
-        <a sec:authorize="isAnonymous()" th:href="@{/register}" class="doodle-link">Sign Up</a>
-        <a th:href="@{/status}" class="doodle-link" style="color: #0984e3;">Flight Status 🛰️</a>
-        <a th:href="@{/}" class="doodle-link">Search</a>
-
-        <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post" style="display:inline;">
-            <button type="submit" style="background:none; border:none; cursor:pointer; color:#6c5ce7; font-family:'Kalam'; font-weight:bold; text-decoration:underline;">Logout</button>
-        </form>
-    </nav>
-
-    <header class="doodle-header">
-        <h1>HappieGoLucky ✈️</h1>
-    </header>
-
-    <form id="flightSearchForm" class="search-section">
-        <div class="form-group">
-            <label class="doodle-label">From</label>
-            <input type="text" id="from" placeholder="JFK" required>
-        </div>
-        <div class="form-group">
-            <label class="doodle-label">To</label>
-            <input type="text" id="to" placeholder="LHR" required>
-        </div>
-        <div class="form-group">
-            <label class="doodle-label">Date</label>
-            <input type="date" id="date" required>
-        </div>
-        <button type="submit" class="doodle-button">Find!</button>
-    </form>
-
-    <div id="flightResults" class="flight-list"></div>
+<div class="hero">
+    <h1>Find Your Happie Place</h1>
+    <p>Real-time prices sorted from cheapest to best.</p>
 </div>
-<script th:src="@{/js/app.js}"></script>
+
+<div class="container">
+    <div class="search-box-expanded">
+        <div class="search-row">
+            <div class="input-group">
+                <label>From</label>
+                <input type="text" id="from" list="fromList" placeholder="NYC" oninput="fetchSuggestions('from')">
+                <datalist id="fromList"></datalist>
+            </div>
+
+            <div class="input-group">
+                <label>To</label>
+                <input type="text" id="to" list="toList" placeholder="LON" oninput="fetchSuggestions('to')">
+                <datalist id="toList"></datalist>
+            </div>
+        </div>
+
+        <div class="search-row">
+            <div class="input-group">
+                <label>Departure</label>
+                <input type="date" id="depDate" value="2026-02-15">
+            </div>
+            <div class="input-group">
+                <label>Return</label>
+                <input type="date" id="retDate">
+            </div>
+            <div class="input-group">
+                <label>Travelers</label>
+                <div class="passenger-picker">
+                    <div class="counter">
+                        <span>Adults</span>
+                        <button onclick="updateCount('adults', -1)">-</button>
+                        <span id="adultsCount">1</span>
+                        <button onclick="updateCount('adults', 1)">+</button>
+                    </div>
+                    <div class="counter">
+                        <span>Children</span>
+                        <button onclick="updateCount('children', -1)">-</button>
+                        <span id="childrenCount">0</span>
+                        <button onclick="updateCount('children', 1)">+</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="search-footer">
+            <select id="currencySelector" onchange="convertPrices()">
+                <option value="USD">USD ($)</option>
+                <option value="EUR">EUR (€)</option>
+                <option value="INR">INR (₹)</option>
+                <option value="GBP">GBP (£)</option>
+            </select>
+            <button class="btn-main" onclick="performSearch()">Search Live Deals ✈️</button>
+        </div>
+    </div>
+
+    <div id="loader" class="loader" style="display:none">Scanning Amadeus Global GDS... 📡</div>
+    <div id="results"></div>
+</div>
+
+<script src="/js/app.js"></script>
 </body>
 </html>
