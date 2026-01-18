@@ -60,12 +60,21 @@
         </div>
 
         <div class="search-footer">
-            <select id="currencySelector" onchange="convertPrices()">
-                <option value="USD">USD ($)</option>
-                <option value="EUR">EUR (€)</option>
-                <option value="INR">INR (₹)</option>
-                <option value="GBP">GBP (£)</option>
-            </select>
+            <div style="display:flex; gap:10px;">
+                <select id="currencySelector" onchange="convertPrices()">
+                    <option value="USD">USD ($)</option>
+                    <option value="EUR">EUR (€)</option>
+                    <option value="INR">INR (₹)</option>
+                    <option value="GBP">GBP (£)</option>
+                </select>
+
+                <select id="sortSelector" onchange="sortResults()">
+                    <option value="cheap">Sort: Cheapest 💰</option>
+                    <option value="fast">Sort: Fastest ⚡</option>
+                    <option value="best">Sort: Best Value ⭐</option>
+                </select>
+            </div>
+
             <button class="btn-main" onclick="performSearch()">Search Live Deals ✈️</button>
         </div>
     </div>
